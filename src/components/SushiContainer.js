@@ -7,22 +7,41 @@ function SushiContainer(props) {
   const [sushiStartIdx, setSushiStartIdx] = useState(0);
   const dispSushis = [];
 
-  for (let i = 0; i < 4; i++) {
-    const curIdx = sushiStartIdx + i;
-    if (curIdx < sushiList.length) {
-      dispSushis.push(
-        <Sushi key={sushiList[curIdx].sushi.id} 
-          sushiObj={sushiList[curIdx]} 
-          onSushiEaten={onSushiEaten} />
-      );
-    } 
+  // Core Deliverables
+  // for (let i = 0; i < 4; i++) {
+  //   const curIdx = sushiStartIdx + i;
+  //   if (curIdx < sushiList.length) {
+  //     dispSushis.push(
+  //       <Sushi key={sushiList[curIdx].sushi.id} 
+  //         sushiObj={sushiList[curIdx]} 
+  //         onSushiEaten={onSushiEaten} />
+  //     );
+  //   } 
+  // }
+  // Bonus Devliverables - Full Rotation
+  for (let i = 0; i < 4 && i < sushiList.length; i++) {
+    let curIdx = sushiStartIdx + i;
+    if (curIdx >= sushiList.length) {
+      curIdx -= sushiList.length;
+    }
+    dispSushis.push(
+      <Sushi key={sushiList[curIdx].sushi.id} 
+        sushiObj={sushiList[curIdx]} 
+        onSushiEaten={onSushiEaten} />
+    );
   }
 
   function handleMoreButtonClick() {
-    if (sushiStartIdx + 4 < sushiList.length)
-      setSushiStartIdx(sushiStartIdx + 4);
+    // Core Deliverables
+    // if (sushiStartIdx + 4 < sushiList.length)
+    //   setSushiStartIdx(sushiStartIdx + 4);
+    
+    // Bonus Devliverables - Full Rotation
+    if (sushiList.length > 4) {
+      setSushiStartIdx((sushiStartIdx + 4) % sushiList.length);
+    }
   }
-  // console.log('in SushiContainer, sushiStartIdx: ', sushiStartIdx);
+  // s
 
   return (
     <div className="belt">

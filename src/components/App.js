@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SushiContainer from "./SushiContainer";
 import Table from "./Table";
+import AddBudget from "./AddBudget";
 
 const API = "http://localhost:3001/sushis";
 
@@ -26,6 +27,11 @@ function App() {
     setPlates([...plates, sushiObj]);
   }
 
+  function handleAddBuget(amount) {
+    console.log('in handleAddBuget, budget: ', budget, ', amount: ', amount);
+    setBudget(budget + amount);
+  }
+
   useEffect(() => {
     fetch(API)
     .then(resp => resp.json())
@@ -40,10 +46,13 @@ function App() {
   // console.log('in App, sushiList: ', sushiList);
 
   return (
-    <div className="app">
-      <SushiContainer sushiList={sushiList} onSushiEaten={handleSushiEaten} />
-      <Table budget={budget} plates={plates} />
-    </div>
+    <React.Fragment>
+      <AddBudget onAddBudget={handleAddBuget} />
+      <div className="app">
+        <SushiContainer sushiList={sushiList} onSushiEaten={handleSushiEaten} />
+        <Table budget={budget} plates={plates} />
+      </div>
+    </React.Fragment>
   );
 }
 
